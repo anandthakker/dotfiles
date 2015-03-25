@@ -2,7 +2,8 @@
 	name = Anand Thakker
 	email = vestibule@anandthakker.net
 [core]
-	editor = nano
+	editor = vim
+	excludesfile = /Users/anand/.gitignore_global
 [push]
 	default = simple
 [filter "media"]
