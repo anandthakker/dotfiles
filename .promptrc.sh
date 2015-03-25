@@ -38,7 +38,7 @@ BGCY='\[\033[46m\]' # background cyan
 BGGR='\[\033[47m\]' # background gray
 
 # Give the hostname an emphasized color
-HOSTCOLOR="$FGGRBD"
+HOSTCOLOR="$FGGR"
 
 # Detect whether the current directory is a git repository.
 function is_git_repository {
@@ -52,11 +52,11 @@ function set_git_branch {
 
   # Set color based on clean/staged/dirty.
   if [[ ${git_status} =~ "working directory clean" ]]; then
-    state=$FGGNBD
+    state=$FGBL
   elif [[ ${git_status} =~ "Changes to be committed" ]]; then
-    state=$FGYLBD
+    state=$FGYL
   else
-    state=$FGRDBD
+    state=$FGRD
   fi
 
   if [[ ${git_status} =~ "Changes not staged for commit:" ]]; then
@@ -153,7 +153,7 @@ function set_bash_prompt () {
   fi
 
   # Set the bash prompt variable.
-  PS1="\n${FGBLBD}${VENV}${RESET}[$FGGNBD\u:$RESET$FGGR\w]$fill$RESET ${BRANCH}$RESET\n${PROMPT_SYMBOL}  "
+  PS1="\n${FGBL}${VENV}${RESET}[$FGCY\u:$RESET$FGGR\w]$fill$RESET ${BRANCH}$RESET\n${PROMPT_SYMBOL}  "
 }
 
 # Tell bash to execute this function just before displaying its prompt.
