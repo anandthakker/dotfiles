@@ -36,6 +36,28 @@ nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
 nnoremap <Leader>r :%s/\<<c-r>"\>/<c-r>./g
 
 
+" ultisnips
 let g:UltiSnipsExpandTrigger="<c-b>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+
+" delimitMate
+let delimitMate_expand_space = 1
+let delimitMate_expand_cr = 2
+
+" syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_javascript_checkers = ['jshint']
+
+" up the font size
+set guifont=Menlo\ Regular:h13
+
+
