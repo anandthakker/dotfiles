@@ -47,11 +47,9 @@ let delimitMate_expand_space = 1
 let delimitMate_expand_cr = 2
 
 " syntastic
-if 0
-  set statusline+=%#warningmsg#
-  set statusline+=%{SyntasticStatuslineFlag()}
-  set statusline+=%*
-endif
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 0
@@ -76,10 +74,8 @@ endfun
 
 function! g:setJavascriptChecker()
   if g:FindRc(expand('%:p:h'))
-    echo "jshint"
     let b:syntastic_checkers = ["jshint"] |
   else
-    echo "standard"
     let b:syntastic_checkers = ["standard"] |
   endif
 endfun
