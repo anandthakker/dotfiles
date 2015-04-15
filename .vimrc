@@ -47,21 +47,44 @@ let delimitMate_expand_space = 1
 let delimitMate_expand_cr = 2
 
 " syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+if 0
+  set statusline+=%#warningmsg#
+  set statusline+=%{SyntasticStatuslineFlag()}
+  set statusline+=%*
+endif
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-autocmd FileType javascript
-  \ if filereadable(expand("%:h") . "/.jshintrc")
-  \ | let b:syntastic_checkers = ["jshint"] |
-  \ else
-  \ | let b:syntastic_checkers = ["standard"] |
-  \ endif
+" FindRc() will try to find a .jshintrc up the current path string
+" If it cannot find one it will try looking in the home directory
+" finally it will return an empty list indicating jshint should use
+" the defaults.
+function! g:FindRc(path)
+  let l:jshintrc_file = fnamemodify(a:path, ':p') . '.jshintrc'
+  echo l:jshintrc_file
+  if filereadable(l:jshintrc_file)
+    return 1
+  elseif len(a:path) > 1
+    return g:FindRc(fnamemodify(a:path, ":h"))
+  else
+    return 0
+  endif
+endfun
+
+function! g:setJavascriptChecker()
+  if g:FindRc(expand('%:p:h'))
+    echo "jshint"
+    let b:syntastic_checkers = ["jshint"] |
+  else
+    echo "standard"
+    let b:syntastic_checkers = ["standard"] |
+  endif
+endfun
+
+autocmd FileType javascript call g:setJavascriptChecker()
 
 " up the font size
 set guifont=Menlo\ Regular:h13
