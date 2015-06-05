@@ -1,5 +1,6 @@
 [user]
 	name = Anand Thakker
+  username = anandthakker
 	email = vestibule@anandthakker.net
 [core]
 	editor = mvim -v
@@ -19,3 +20,5 @@
 	clean = git hawser clean %f
 	smudge = git hawser smudge %f
 	required = true
+[github]
+	user = anandthakker

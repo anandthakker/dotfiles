@@ -20,3 +20,5 @@ fi
 
 # remap vim to MacVim
 alias vim='mvim -v'
+
+EDITOR='mvim -v'
