@@ -165,7 +165,7 @@
         "react/react-in-jsx-scope": 2,
         "react/self-closing-comp": 2,
         "react/wrap-multilines": 2,
-        "semi": [2, "always"],
+        "semi": [2, "never"],
         "semi-spacing": 0,
         "sort-vars": 0,
         "space-after-keywords": [2, "always"],
