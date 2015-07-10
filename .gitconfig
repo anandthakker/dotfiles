@@ -3,8 +3,8 @@
   username = anandthakker
 	email = vestibule@anandthakker.net
 [core]
-	editor = mvim -v
-	excludesfile = /Users/anand/.gitignore_global
+	editor = vim
+	excludesfile = ~/.gitignore_global
 [push]
 	default = simple
 [filter "media"]
