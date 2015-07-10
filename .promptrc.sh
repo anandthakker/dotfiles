@@ -142,7 +142,7 @@ function set_bash_prompt () {
 
   # Fill spaces between the left and right halves
   strippedbranch=`echo $BRANCH | sed 's|\\\\\\[[^]]*\\]||g'`
-  lefthalf="$VENV[`whoami`:`pwd | sed "s|$HOME|~|"`]"
+  lefthalf="$VENV[`whoami`@`hostname`:`pwd | sed "s|$HOME|~|"`]"
   righthalf="$strippedbranch"
   let fillsize=${COLUMNS}-${#lefthalf}-${#righthalf}-1
   if [ "$fillsize" -gt "0" ]; then
@@ -153,7 +153,7 @@ function set_bash_prompt () {
   fi
 
   # Set the bash prompt variable.
-  PS1="\n${FGBL}${VENV}${RESET}[$FGCY\u:$RESET$FGGR\w]$fill$RESET ${BRANCH}$RESET\n${PROMPT_SYMBOL}  "
+  PS1="\n${FGBL}${VENV}${RESET}[$FGCY\u@\h:$RESET$FGGR\w]$fill$RESET ${BRANCH}$RESET\n${PROMPT_SYMBOL}  "
 }
 
 # Tell bash to execute this function just before displaying its prompt.
