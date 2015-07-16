@@ -1,4 +1,4 @@
-if which brew ; then
+if command -v brew > /dev/null 2>&1; then
   MACOSX=1
 else
   MACOSX=0
@@ -72,23 +72,22 @@ if [ -f ~/.promptrc.sh ]; then
   source ~/.promptrc.sh
 fi
 
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
+# enable programmable completion features
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
     . /usr/share/bash-completion/bash_completion
   elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
-  elif which brew && [ -f $(brew --prefix)/etc/bash_completion ]; then
+  elif [ $MACOSX ] && [ -f $(brew --prefix)/etc/bash_completion ]; then
     . $(brew --prefix)/etc/bash_completion
   fi
 fi
 
 # editor
+VISUAL='vim'
 EDITOR='vim'
 # use mvim -v for vim in the terminal
-which mvim && alias vim='mvim -v' && EDITOR='mvim -v'
+[ $MACOSX ] && alias vim='mvim -v' && EDITOR='mvim -v'
 
 # added by travis gem
 [ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
