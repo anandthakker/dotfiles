@@ -7,6 +7,7 @@
 	excludesfile = ~/.gitignore_global
 [push]
 	default = simple
+	followTags = true
 [filter "media"]
 	required = true
 	clean = git media clean %f
