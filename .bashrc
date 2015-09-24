@@ -50,7 +50,7 @@ if [ MACOSX -o -x /usr/bin/dircolors ]; then
 fi
 
 # some more ls aliases
-alias ll='ls -alF'
+alias ll='ls -alhF'
 alias la='ls -A'
 alias l='ls -CF'
 
@@ -97,6 +97,9 @@ EDITOR='vim'
 
 # added by travis gem
 [ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
+
+# docker machine
+[ -s $HOME/.dockermachine ] && source $HOME/.dockermachine
 
 ################################################################################
 # Path
