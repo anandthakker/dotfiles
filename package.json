@@ -1,0 +1,23 @@
+{
+  "name": "dotfiles",
+  "version": "1.0.0",
+  "description": "```bash cd # change to home directory git clone https://github.com/anandthakker/dotfiles # clone repo ./dotfiles/link.sh # make symlinks from home directory to the files in the dotfiles/ repo ```",
+  "main": "index.js",
+  "dependencies": {
+    "JSONStream": "^1.0.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anandthakker/dotfiles.git"
+  },
+  "author": "Anand Thakker <vestibule@anandthakker.net> (http://anandthakker.net/)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anandthakker/dotfiles/issues"
+  },
+  "homepage": "https://github.com/anandthakker/dotfiles#readme"
+}

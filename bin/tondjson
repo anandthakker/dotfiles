@@ -1,0 +1,6 @@
+#!/usr/bin/env node
+
+var parse = require('JSONStream').parse('*')
+var serialize = require('JSONStream').stringify('', '\n', '')
+
+process.stdin.pipe(parse).pipe(serialize).pipe(process.stdout)
