@@ -59,8 +59,11 @@ alias l='ls -CF'
 ################################################################################
 
 # Base16 Shell
-BASE16_SHELL="$HOME/dotfiles/base16-shell/base16-atelierdune.dark.sh"
+BASE16_SHELL="$HOME/dotfiles/base16-shell/base16-default.dark.sh"
 [[ -s $BASE16_SHELL  ]] && source $BASE16_SHELL
+
+# Neovim true color
+export NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 ################################################################################
 # Misc
@@ -90,10 +93,13 @@ if ! shopt -oq posix; then
 fi
 
 # editor
-VISUAL='vim'
-EDITOR='vim'
-# use mvim -v for vim in the terminal
-[ $MACOSX ] && alias vim='mvim -v' && EDITOR='mvim -v'
+export EDITOR='vim'
+if command -v nvim > /dev/null 2>&1; then
+  alias vim='nvim'
+  export EDITOR='nvim'
+fi
+export GIT_EDITOR="$EDITOR"
+export VISUAL="$EDITOR"
 
 # added by travis gem
 [ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh

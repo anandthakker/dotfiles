@@ -3,7 +3,6 @@
   username = anandthakker
 	email = vestibule@anandthakker.net
 [core]
-	editor = vim
 	excludesfile = ~/.gitignore_global
 [push]
 	default = simple
