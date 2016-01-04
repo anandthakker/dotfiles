@@ -62,9 +62,6 @@ alias l='ls -CF'
 BASE16_SHELL="$HOME/dotfiles/base16-shell/base16-default.dark.sh"
 [[ -s $BASE16_SHELL  ]] && source $BASE16_SHELL
 
-# Neovim true color
-export NVIM_TUI_ENABLE_TRUE_COLOR=1
-
 ################################################################################
 # Misc
 ################################################################################
