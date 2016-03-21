@@ -4,6 +4,7 @@
 	email = vestibule@anandthakker.net
 [core]
 	excludesfile = ~/.gitignore_global
+	pager = diff-highlight | diff-so-fancy | less --tabs=1,5 -R -F
 [push]
 	default = simple
 	followTags = true
