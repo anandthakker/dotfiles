@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # enable coloring
 export CLICOLOR=1
 
@@ -36,9 +37,6 @@ BGBL='\[\033[44m\]' # background blue
 BGMG='\[\033[45m\]' # background magenta
 BGCY='\[\033[46m\]' # background cyan
 BGGR='\[\033[47m\]' # background gray
-
-# Give the hostname an emphasized color
-HOSTCOLOR="$FGGR"
 
 # Detect whether the current directory is a git repository.
 function is_git_repository {
@@ -107,9 +105,9 @@ function set_git_branch {
 function set_prompt_symbol () {
   # echo "set_prompt_symbol"
   if test $1 -eq 0 ; then
-    PROMPT_SYMBOL="⌘"
+    PROMPT_SYMBOL=">"
   else
-    PROMPT_SYMBOL="\[\033[0;31m\]⌘\[\033[0m\]"
+    PROMPT_SYMBOL="\[\033[0;31m\]>\[\033[0m\]"
   fi
 }
 
@@ -123,6 +121,25 @@ function set_virtual_env () {
     fi
 
 }
+
+# test for ssh session
+# http://unix.stackexchange.com/a/9607
+if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+  SESSION_TYPE="ssh:"
+# many other tests omitted
+else
+  case $(ps -o comm= -p $PPID) in
+    sshd|*/sshd) SESSION_TYPE="ssh:";;
+  esac
+fi
+
+USER=`whoami`
+HOST=`hostname`
+
+# Pick main color based on hostname
+hostcolors=($FGCY $FGGN $FGYL $FGBL $FGMG $FGBKBD)
+hostnumber=$(echo $USER$HOST | od | tr ' ' '\n' | awk '{sum = sum + $1}END{print (sum % 6)}')
+HOSTCOLOR=${hostcolors[$hostnumber]}
 
 # Set the full bash prompt.
 function set_bash_prompt () {
@@ -140,9 +157,11 @@ function set_bash_prompt () {
 
   set_virtual_env
 
+  WORKDIR=`pwd | sed "s|$HOME|~|"`
+
   # Fill spaces between the left and right halves
   strippedbranch=`echo $BRANCH | sed 's|\\\\\\[[^]]*\\]||g'`
-  lefthalf="$VENV[`whoami`@`hostname`:`pwd | sed "s|$HOME|~|"`]"
+  lefthalf="$VENV[$SESSION_TYPE$USER@$HOST:$WORKDIR]"
   righthalf="$strippedbranch"
   let fillsize=${COLUMNS}-${#lefthalf}-${#righthalf}-1
   if [ "$fillsize" -gt "0" ]; then
@@ -153,7 +172,7 @@ function set_bash_prompt () {
   fi
 
   # Set the bash prompt variable.
-  PS1="\n${FGBL}${VENV}${RESET}[$FGCY\u@\h:$RESET$FGGR\w]$fill$RESET ${BRANCH}$RESET\n${PROMPT_SYMBOL}  "
+  PS1="\n${FGBL}${VENV}${RESET}[$FGRDBD$SESSION_TYPE$HOSTCOLOR$USER@$HOST:$RESET$FGGR$WORKDIR]$fill$RESET ${BRANCH}$RESET\n${PROMPT_SYMBOL} "
 }
 
 # Tell bash to execute this function just before displaying its prompt.
