@@ -2,6 +2,7 @@
 	name = Anand Thakker
   username = anandthakker
 	email = vestibule@anandthakker.net
+	signingkey = 964B94FA
 [core]
 	excludesfile = ~/.gitignore_global
 	pager = diff-highlight | diff-so-fancy | less --tabs=1,5 -R -F
@@ -27,3 +28,5 @@
 	clean = git-lfs clean %f
 	smudge = git-lfs smudge %f
 	required = true
+[commit]
+	gpgsign = true
