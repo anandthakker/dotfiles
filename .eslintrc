@@ -1,1 +1,6 @@
-{"extends":"eslint-config-unstyled"}
+{
+  "extends":"eslint-config-unstyled",
+  "env": {
+    "es6": true
+  }
+}

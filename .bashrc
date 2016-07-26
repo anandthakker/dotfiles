@@ -101,9 +101,6 @@ export VISUAL="$EDITOR"
 # added by travis gem
 [ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
 
-# docker machine
-[ -s $HOME/.dockermachine ] && source $HOME/.dockermachine
-
 ################################################################################
 # Path
 ################################################################################
