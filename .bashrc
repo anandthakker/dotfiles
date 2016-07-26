@@ -101,6 +101,11 @@ export VISUAL="$EDITOR"
 # added by travis gem
 [ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
 
+# https://github.com/juliangruber/project.sh
+[ -d $HOME/dotfiles/project.sh ] && source $HOME/dotfiles/project.sh/project.sh
+export PROJ_ROOT=$HOME/c
+mkdir -p $PROJ_ROOT
+
 ################################################################################
 # Path
 ################################################################################
