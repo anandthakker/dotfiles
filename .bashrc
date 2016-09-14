@@ -106,6 +106,9 @@ export VISUAL="$EDITOR"
 export PROJ_ROOT=$HOME/c
 mkdir -p $PROJ_ROOT
 
+# Docker helpers
+[ -f $HOME/dotfiles/.dockerfunc ] && source $HOME/dotfiles/.dockerfunc
+
 ################################################################################
 # Path
 ################################################################################
