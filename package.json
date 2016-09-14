@@ -4,7 +4,8 @@
   "description": "```bash cd # change to home directory git clone https://github.com/anandthakker/dotfiles # clone repo ./dotfiles/link.sh # make symlinks from home directory to the files in the dotfiles/ repo ```",
   "main": "index.js",
   "dependencies": {
-    "JSONStream": "^1.0.6"
+    "JSONStream": "^1.0.6",
+    "minimist": "^1.2.0"
   },
   "devDependencies": {},
   "scripts": {
