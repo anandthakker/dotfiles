@@ -1,8 +1,8 @@
 [user]
 	name = Anand Thakker
   username = anandthakker
-	email = vestibule@anandthakker.net
-	signingkey = 964B94FA
+	email = github@anandthakker.net
+	signingkey = 22DE2A42964B94FA
 [core]
 	excludesfile = ~/.gitignore_global
 	pager = diff-highlight | diff-so-fancy | less --tabs=1,5 -R -F
