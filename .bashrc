@@ -109,10 +109,22 @@ mkdir -p $PROJ_ROOT
 # Docker helpers
 [ -f $HOME/dotfiles/.dockerfunc ] && source $HOME/dotfiles/.dockerfunc
 
+# Android development
+export ANDROID_HOME=/Users/anand/Library/Android/sdk
+
+# added by travis gem
+[ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
+
 ################################################################################
 # Path
 ################################################################################
 PATH="$HOME/dotfiles/bin:$HOME/bin:$PATH:$HOME/.rvm/bin"
+
+PATH="/usr/local/opt/ruby/bin:$PATH"
+PATH="/usr/local/opt/qt5/bin:${PATH}"
+PATH="$HOME/.cargo/bin:$PATH"
+PATH="/Library/Frameworks/Python.framework/Versions/3.6/bin:${PATH}"
+PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
 
 ################################################################################
 # The End
