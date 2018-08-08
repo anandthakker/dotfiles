@@ -1,10 +1,22 @@
 #!/bin/sh
 
+if [[ $(git rev-parse --abbrev-ref HEAD) != "master" ]]; then
+  read -n 1 -p "Current branch is not master. Are you sure you want to delete unmerged branches?" answer
+  case ${answer:0:1} in
+      y|Y )
+          echo "Okay, going ahead!"
+      ;;
+      * )
+          exit
+      ;;
+  esac
+fi
+
 echo "Deleting merged branches."
 git branch --merged | grep -v "\*" | xargs -n 1 git branch -d
 
 # When merging on GitHub using the squash or rebase option, the above command
 # doesn't identify the branch as being merged. Attempt to catch branches like these
 # by grepping for "origin/branchname: gone" in the verbose branch listing
-echo "Deleting branches that once existed on origin, but are now gone."
+echo "Deleting branches that once existed on 'origin', but are now gone."
 git branch -vv | grep "origin\/[a-zA-Z0-9_-]*: gone" | cut -c 3- | cut -d ' ' -f 1 | xargs -n1 git branch -D
