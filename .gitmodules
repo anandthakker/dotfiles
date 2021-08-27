@@ -7,3 +7,12 @@
 [submodule "project.sh"]
 	path = project.sh
 	url = https://github.com/anandthakker/project.sh
+[submodule "zsh-custom/plugins/zsh-autosuggestions"]
+	path = zsh-custom/plugins/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions
+[submodule "zsh-custom/plugins/zsh-completions"]
+	path = zsh-custom/plugins/zsh-completions
+	url = https://github.com/zsh-users/zsh-completions
+[submodule "zsh-custom/plugins/zsh-syntax-highlighting"]
+	path = zsh-custom/plugins/zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting

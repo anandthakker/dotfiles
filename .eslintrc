@@ -2,5 +2,12 @@
   "extends":"eslint-config-unstyled",
   "env": {
     "es6": true
-  }
+  },
+  "parserOptions": {
+    "ecmaVersion": 9,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
 }

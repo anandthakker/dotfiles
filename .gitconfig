@@ -2,10 +2,8 @@
 	name = Anand Thakker
   username = anandthakker
 	email = github@anandthakker.net
-	signingkey = 22DE2A42964B94FA
 [core]
 	excludesfile = ~/.gitignore_global
-	pager = diff-highlight | diff-so-fancy | less --tabs=1,5 -R -F
 [push]
 	default = simple
 	followTags = true
@@ -25,8 +23,8 @@
 [github]
 	user = anandthakker
 [filter "lfs"]
-	clean = git-lfs clean %f
-	smudge = git-lfs smudge %f
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
 	required = true
+	process = git-lfs filter-process
 [commit]
-	gpgsign = true
