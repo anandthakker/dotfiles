@@ -7,7 +7,7 @@ local ret_status="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ )"
 ZSH_THEME_VIRTUALENV_PREFIX=" ("
 ZSH_THEME_VIRTUALENV_SUFFIX=")"
 
-ZSH_THEME_GIT_PROMPT_CLEAN=" %{$fg_bold[green]%}✔️ "
+ZSH_THEME_GIT_PROMPT_CLEAN=" %{$fg_bold[green]%}✓ "
 ZSH_THEME_GIT_PROMPT_DIRTY=" %{$fg_bold[yellow]%}✗ "
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[white]%}%{$fg_bold[cyan]%} "
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
