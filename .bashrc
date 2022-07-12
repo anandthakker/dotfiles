@@ -136,3 +136,4 @@ PATH="/usr/local/opt/gnu-sed/libexec/gnubin:${PATH}"
 ################################################################################
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+. "$HOME/.cargo/env"
