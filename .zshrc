@@ -90,6 +90,7 @@ fi
 # Preferred editor for local and remote sessions
 export EDITOR='vim'
 if command -v nvim > /dev/null 2>&1; then
+  alias vi='nvim'
   alias vim='nvim'
   export EDITOR='nvim'
 fi
