@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/anand/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -119,6 +119,11 @@ if [ MACOSX -o -x /usr/bin/dircolors ]; then
 fi
 
 alias timeout='gtimeout'
+
+# allow bash completions https://stackoverflow.com/a/67161186
+autoload -Uz compinit bashcompinit
+compinit
+bashcompinit
 
 # https://github.com/juliangruber/project.sh
 [ -d $HOME/dotfiles/project.sh ] && source $HOME/dotfiles/project.sh/project.sh
