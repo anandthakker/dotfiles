@@ -2,3 +2,4 @@
 node_modules
 .bash_profile
 .profile
+Brewfile.lock.json
