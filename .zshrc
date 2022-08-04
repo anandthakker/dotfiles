@@ -70,7 +70,7 @@ ZSH_CUSTOM="$HOME"/dotfiles/zsh-custom
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git nvm github zsh-syntax-highlighting zsh-autosuggestions zsh-completions)
+plugins=(git nvm github zsh-syntax-highlighting zsh-autosuggestions zsh-completions aws)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -150,3 +150,13 @@ pastefinish() {
 }
 zstyle :bracketed-paste-magic paste-init pasteinit
 zstyle :bracketed-paste-magic paste-finish pastefinish
+
+# bun completions
+[ -s "/Users/anand/.bun/_bun" ] && source "/Users/anand/.bun/_bun"
+
+# bun
+export BUN_INSTALL="/Users/anand/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# homebrew sbin (for dnsmasq)
+PATH="/usr/local/sbin:${PATH}"
