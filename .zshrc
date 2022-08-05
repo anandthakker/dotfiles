@@ -80,6 +80,8 @@ if command -v brew > /dev/null 2>&1; then
   MACOSX=1
 fi
 
+export HOMEBREW_BUNDLE_FILE="$HOME"/dotfiles/Brewfile
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -166,3 +168,9 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # homebrew sbin (for dnsmasq)
 PATH="/usr/local/sbin:${PATH}"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export PATH=$(pyenv root)/shims:$PATH
