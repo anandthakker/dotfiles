@@ -54,7 +54,8 @@ require "config/harpoon"
 -- require "config/telescope"
 
 -- fzf
-vim.cmd "set rtp+=/usr/local/opt/fzf"
+local brew_root = string.gsub(vim.fn.system("brew --prefix"), "%s", "")
+vim.cmd ("set rtp+="..brew_root.."/opt/fzf")
 vim.cmd "let g:fzf_layout = {'up': '~50%'}"
 vim.api.nvim_set_keymap("n", "<leader>p", ":GFiles<CR>", {noremap = true, silent = true})
 vim.api.nvim_set_keymap("n", "<leader>o", ":Files<CR>", {noremap = true, silent = true})

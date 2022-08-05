@@ -75,14 +75,13 @@ require("packer").startup(
       use "tpope/vim-surround"
 
       -- Neovim motions on speed!
-      -- use {
-      --   -- "/phaazon/hop.nvim",
-      --   "~/src/hop.nvim",
-      --   as = "hop",
-      --   config = function()
-      --     require("hop").setup {}
-      --   end
-      -- }
+      use {
+        "phaazon/hop.nvim",
+        branch = 'v2',
+        config = function()
+          require("hop").setup {}
+        end
+      }
 
       -- For showing the actual color of the hex value
       use "norcalli/nvim-colorizer.lua"
