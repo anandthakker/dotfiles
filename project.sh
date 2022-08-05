@@ -8,7 +8,7 @@ clone() {
   cd $PROJ_ROOT
   mkdir -p $1
   cd $1
-  git clone https://github.com/$1/$2.git
+  git clone git@github.com:$1/$2.git
   cd $2
 }
 
