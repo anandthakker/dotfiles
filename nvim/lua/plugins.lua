@@ -61,16 +61,17 @@ require("packer").startup(
           }
         end
       }
+
+      -- git, github
       use "tpope/vim-fugitive"
       use "tpope/vim-rhubarb"
 
+      -- netrw
+      use "tpope/vim-vinegar"
+
       -- vim enhancements (motion, repeatability)
       use "tpope/vim-commentary"
-      -- use "tpope/vim-unimpaired"
       use "tpope/vim-abolish"
-
-      -- incompatible w/ compe
-      -- use { 'tpope/vim-endwise' }
       use "tpope/vim-repeat"
       use "tpope/vim-surround"
 
