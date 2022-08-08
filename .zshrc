@@ -79,6 +79,12 @@ export NVM_DIR="$HOME/.nvm"
 # pyenv
 export PATH=$(pyenv root)/shims:$PATH
 
+# fix puppeteer install (https://linguinecode.com/post/how-to-fix-m1-mac-puppeteer-chromium-arm64-bug)
+if [[ $(uname -m) == 'arm64' ]]; then
+  export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+  export PUPPETEER_EXECUTABLE_PATH=`which chromium`
+fi
+
 #
 # Aliases
 #
