@@ -19,6 +19,8 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.incsearch = true
 vim.o.hlsearch = true
+-- scrolling with mouse is nice
+vim.o.mouse = "a"
 
 vim.wo.wrap = false
 vim.wo.cursorline = true
