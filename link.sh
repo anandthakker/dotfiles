@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 
 # Clone dotfiles into ~/dotfiles, then run this.
 
@@ -9,4 +10,7 @@ done
 
 mkdir -p .config
 cd .config
-[ -d nvim ] && echo ".config/nvim exists: skipping." || (ln -s ../dotfiles/nvim && echo "Linked .config/nvim")
+for dir in nvim alacritty
+do
+  [ -d "$dir" ] && echo ".config/$dir exists: skipping." || (ln -s ../dotfiles/$dir && echo "Linked .config/$dir")
+done
