@@ -51,6 +51,7 @@ bashcompinit
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='rg --files --hidden'
 
 # https://github.com/juliangruber/project.sh
 [ -d $HOME/dotfiles/project.sh ] && source $HOME/dotfiles/project.sh/project.sh
@@ -96,4 +97,13 @@ if [ MACOSX -o -x /usr/bin/dircolors ]; then
 fi
 
 alias timeout='gtimeout'
+
+alias tkill="for s in \$(tmux list-sessions | awk '{print \$1}' | rg ':' -r '' | fzf); do tmux kill-session -t \$s; done;"
+
+#
+# Startup
+#
+
+# start tmux
+ta || true
 
