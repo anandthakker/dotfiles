@@ -29,6 +29,10 @@ vim.wo.colorcolumn = "120"
 
 vim.cmd "autocmd BufWritePre * StripWhitespace"
 
+-- check for changes on disk on focus
+vim.cmd "autocmd BufEnter,FocusGained * checktime"
+vim.cmd "autocmd FocusGained * echo 'FocusGained'"
+
 -- replace unimpaired bindings
 vim.api.nvim_set_keymap("n", "[j", "<C-O>", {noremap = true})
 vim.api.nvim_set_keymap("n", "]j", "<C-I>", {noremap = true})
@@ -44,6 +48,7 @@ vim.api.nvim_set_keymap("n", "<leader>-", ":resize -5<CR>", {noremap = true})
 vim.api.nvim_set_keymap("n", "<leader>+", ":vertical resize +5<CR>", {noremap = true})
 vim.api.nvim_set_keymap("n", "<leader>_", ":vertical resize -5<CR>", {noremap = true})
 
+-- configure plugins
 require "config/hop"
 require "config/lsp"
 require "config/completion-and-snippets"
@@ -59,8 +64,11 @@ require "config/harpoon"
 local brew_root = string.gsub(vim.fn.system("brew --prefix"), "%s", "")
 vim.cmd ("set rtp+="..brew_root.."/opt/fzf")
 vim.cmd "let g:fzf_layout = {'up': '~50%'}"
-vim.api.nvim_set_keymap("n", "<leader>p", ":GFiles<CR>", {noremap = true, silent = true})
+-- Find a file
 vim.api.nvim_set_keymap("n", "<leader>o", ":Files<CR>", {noremap = true, silent = true})
+-- Find an open buffer
+vim.api.nvim_set_keymap("n", "<leader>s", ":Buffers<CR>", {noremap = true, silent = true})
+vim.g.fzf_buffers_jump = 1
 
 -- grepper
 vim.cmd "runtime plugin/grepper.vim"
@@ -68,6 +76,7 @@ vim.cmd "let g:grepper.prompt_quote = 0"
 vim.cmd "let g:grepper.tools = ['rg']"
 vim.api.nvim_set_keymap("n", "<leader>g", ":Grepper<CR>", {noremap = true, silent = true})
 
+-- lsp
 vim.cmd "augroup lsp"
 vim.cmd "  au!"
 vim.cmd "  au FileType java lua print('hello'); require('config/lsp').start_jdt()"
