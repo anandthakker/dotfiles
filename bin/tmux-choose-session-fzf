@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# customizable
+has_windows="#{e|>:#{session_windows},1}"
+window_index="#{?$has_windows,:#{window_index},}"
+has_panes="#{e|>:#{window_panes},1}"
+pane_index="#{?$has_panes,[#{pane_index}],}"
+pane_name='#{?#{m/r:^[a-zA-Z0-9]$,#{pane_title}},#{pane_title},#{pane_current_command}}'
+
+LIST_DATA="#{session_name}$window_index#{?$has_windows,,$pane_index} #{?$has_windows,#{window_name}$pane_index,} $pane_name #{pane_current_path}"
+
+FZF_COMMAND="fzf-tmux -p --delimiter=:: --with-nth 4 --color=hl:2"
+
+# do not change
+TARGET_SPEC="#{session_name}::#{window_id}::#{pane_id}::"
+
+# select pane
+LINE=$(tmux list-panes -a -F "$TARGET_SPEC $LIST_DATA" | $FZF_COMMAND) || exit 0
+# split the result
+args=(${LINE//:/ })
+# activate session/window/pane
+tmux select-pane -t ${args[2]} && tmux select-window -t ${args[1]} && tmux switch-client -t ${args[0]}

@@ -67,7 +67,7 @@ vim.cmd "let g:fzf_layout = {'up': '~50%'}"
 -- Find a file
 vim.api.nvim_set_keymap("n", "<leader>o", ":Files<CR>", {noremap = true, silent = true})
 -- Find an open buffer
-vim.api.nvim_set_keymap("n", "<leader>s", ":Buffers<CR>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap("n", "<leader>p", ":Buffers<CR>", {noremap = true, silent = true})
 vim.g.fzf_buffers_jump = 1
 
 -- grepper

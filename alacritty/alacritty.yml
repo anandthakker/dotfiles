@@ -864,12 +864,15 @@ key_bindings:
   - { key: M,              mods: Command,                     action: Minimize              }
   - { key: Q,              mods: Command,                     action: Quit                  }
   - { key: W,              mods: Command,                     action: Quit                  }
-  - { key: N,              mods: Command,                     action: SpawnNewInstance      }
+#  - { key: N,              mods: Command,                     action: SpawnNewInstance      }
   - { key: F,              mods: Command|Control,             action: ToggleFullscreen      }
   - { key: F,              mods: Command, mode: ~Search,      action: SearchForward         }
   - { key: B,              mods: Command, mode: ~Search,      action: SearchBackward        }
   # Map Command+key to Meta+key for certain keys so we can use them in tmux/nvim bindings
   # https://github.com/alacritty/alacritty/issues/62
+  - { key: N,              mods: Command,                     chars: "\x1bn"                }
+  - { key: O,              mods: Command,                     chars: "\x1bo"                }
+  - { key: P,              mods: Command,                     chars: "\x1bp"                }
   - { key: LBracket,       mods: Command,                     chars: "\x1b["                }
   - { key: RBracket,       mods: Command,                     chars: "\x1b]"                }
 
