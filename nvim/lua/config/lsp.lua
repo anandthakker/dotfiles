@@ -23,7 +23,8 @@ local on_attach = function(client, bufnr)
     hint_prefix = "",
     handler_opts = {
       border = "none"
-    }
+    },
+    floating_window = false
   }
 end
 
