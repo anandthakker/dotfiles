@@ -7,7 +7,8 @@ require "formatter".setup {
         return {
           exe = "npx prettier",
           args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0)},
-          stdin = true
+          stdin = true,
+          cwd = vim.fn.expand('%:p:h')
         }
       end
     },
@@ -16,29 +17,18 @@ require "formatter".setup {
         return {
           exe = "npx prettier",
           args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0)},
-          stdin = true
+          stdin = true,
+          cwd = vim.fn.expand('%:p:h')
         }
       end
-      -- linter
-      -- function()
-      --   return {
-      --     exe = "eslint",
-      --     args = {
-      --       "--stdin-filename",
-      --       vim.api.nvim_buf_get_name(0),
-      --       "--fix",
-      --       "--cache"
-      --     },
-      --     stdin = false
-      --   }
-      -- end
     },
     javascript = {
       function()
         return {
           exe = "npx prettier",
           args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0)},
-          stdin = true
+          stdin = true,
+          cwd = vim.fn.expand('%:p:h')
         }
       end
     },
@@ -47,7 +37,8 @@ require "formatter".setup {
         return {
           exe = "npx prettier",
           args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0)},
-          stdin = true
+          stdin = true,
+          cwd = vim.fn.expand('%:p:h')
         }
       end
     },
