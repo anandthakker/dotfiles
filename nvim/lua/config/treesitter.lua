@@ -1,8 +1,12 @@
 -- Treesitter
 require "nvim-treesitter.configs".setup {
-  ensure_installed = { "typescript", "javascript", "rust", "lua", "glsl", "json", "jsdoc", "latex" },
+  ensure_installed = { "typescript", "javascript", "rust", "lua", "glsl", "json", "latex" },
   highlight = {
-    enable = true
+    enable = true,
+    -- Disable treesitter highlighting for files > 2000 lines
+    disable = function(_, bufnr)
+        return vim.api.nvim_buf_line_count(bufnr) > 2000
+    end
   },
   playground = {
     enable = true,
