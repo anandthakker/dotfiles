@@ -56,6 +56,7 @@ require "config/lualine"
 require "config/formatter"
 require "config/treesitter"
 require "config/harpoon"
+require "config/gitsigns"
 -- require "config/lua-dev"
 -- not ready to use telescope yet... seems a bit clunky compared to fzf
 -- require "config/telescope"

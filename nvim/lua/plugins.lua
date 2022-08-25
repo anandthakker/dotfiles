@@ -6,7 +6,12 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   vim.api.nvim_command "packadd packer.nvim"
 end
 vim.cmd [[packadd packer.nvim]]
-vim.cmd "autocmd BufWritePost plugins.lua PackerCompile"
+vim.cmd([[
+  augroup packer_user_config
+    autocmd!
+    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+  augroup end
+]])
 
 require("packer").startup(
   {
@@ -43,23 +48,7 @@ require("packer").startup(
         "lewis6991/gitsigns.nvim",
         requires = {
           "nvim-lua/plenary.nvim"
-        },
-        config = function()
-          require("gitsigns").setup {
-            signs = {
-              add = {hl = "GitSignsAdd", text = "+", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn"},
-              change = {hl = "GitSignsChange", text = "|", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn"},
-              delete = {hl = "GitSignsDelete", text = "_", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn"},
-              topdelete = {hl = "GitSignsDelete", text = "‾", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn"},
-              changedelete = {
-                hl = "GitSignsChange",
-                text = "~",
-                numhl = "GitSignsChangeNr",
-                linehl = "GitSignsChangeLn"
-              }
-            }
-          }
-        end
+        }
       }
 
       -- git, github
@@ -146,7 +135,6 @@ require("packer").startup(
       --   as = "nvim-treesitter/nvim-treesitter-textobjects"
       -- }
       use "nvim-treesitter/nvim-treesitter-textobjects"
-      --use "nvim-treesitter/nvim-treesitter-textobjects"
 
       use "nvim-treesitter/playground"
 
