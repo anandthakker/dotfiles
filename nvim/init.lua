@@ -1,6 +1,5 @@
 require "plugins"
 
-vim.cmd "colorscheme jellybeans"
 vim.cmd "filetype plugin indent on"
 
 vim.g.mapleader = " "
@@ -24,8 +23,8 @@ vim.o.mouse = "a"
 
 vim.wo.wrap = false
 vim.wo.cursorline = true
-vim.wo.cursorcolumn = true
-vim.wo.colorcolumn = "120"
+vim.wo.cursorcolumn = false
+-- vim.wo.colorcolumn = "120"
 
 vim.cmd "autocmd BufWritePre * StripWhitespace"
 
@@ -49,10 +48,10 @@ vim.api.nvim_set_keymap("n", "<leader>+", ":vertical resize +5<CR>", {noremap = 
 vim.api.nvim_set_keymap("n", "<leader>_", ":vertical resize -5<CR>", {noremap = true})
 
 -- configure plugins
+require "config/github-theme"
 require "config/hop"
 require "config/lsp"
 require "config/completion-and-snippets"
-require "config/lualine"
 require "config/formatter"
 require "config/treesitter"
 require "config/harpoon"

@@ -39,7 +39,11 @@ require("packer").startup(
       -- For statusline
       use {
         "hoob3rt/lualine.nvim",
-        requires = {"kyazdani42/nvim-web-devicons", opt = true}
+        requires = {"kyazdani42/nvim-web-devicons", opt = true},
+        after = "github-nvim-theme",
+        config = function ()
+          require 'config/lualine'
+        end
       }
 
       -- Git
@@ -78,6 +82,7 @@ require("packer").startup(
 
       -- Themes
       use "nanotech/jellybeans.vim"
+      use "projekt0n/github-nvim-theme"
 
       -- Neovim LSP
       use "neovim/nvim-lspconfig"
@@ -146,7 +151,7 @@ require("packer").startup(
           }
         end
       }
-      -- use "folke/lua-dev.nvim"
+
     end
   }
 )

@@ -5,7 +5,7 @@ end
 require "lualine".setup {
   options = {
     icons_enabled = true,
-    theme = "jellybeans",
+    theme = "auto",
     component_separators = {"", ""},
     section_separators = {"", ""},
     disabled_filetypes = {}
