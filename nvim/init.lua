@@ -82,3 +82,7 @@ vim.cmd "augroup lsp"
 vim.cmd "  au!"
 vim.cmd "  au FileType java lua print('hello'); require('config/lsp').start_jdt()"
 vim.cmd "augroup end"
+
+-- shortcut to quickly toggle Treesitter highlighting, useful when it's slowing down
+-- editing on large files
+vim.cmd "command! ToggleTSHighlight TSBufToggle highlight"
