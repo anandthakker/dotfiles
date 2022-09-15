@@ -30,7 +30,6 @@ vim.cmd "autocmd BufWritePre * StripWhitespace"
 
 -- check for changes on disk on focus
 vim.cmd "autocmd BufEnter,FocusGained * checktime"
-vim.cmd "autocmd FocusGained * echo 'FocusGained'"
 
 -- replace unimpaired bindings
 vim.api.nvim_set_keymap("n", "[j", "<C-O>", {noremap = true})
@@ -85,3 +84,7 @@ vim.cmd "augroup end"
 -- shortcut to quickly toggle Treesitter highlighting, useful when it's slowing down
 -- editing on large files
 vim.cmd "command! ToggleTSHighlight TSBufToggle highlight"
+
+-- trouble key maps
+vim.api.nvim_set_keymap("n", "[t", ":lua require('trouble').previous({skip_groups=true,jump=true})<CR>", {noremap=true,silent=true})
+vim.api.nvim_set_keymap("n", "]t", ":lua require('trouble').next({skip_groups=true,jump=true})<CR>", {noremap=true,silent=true})
