@@ -834,7 +834,9 @@ key_bindings:
   - { key: P,              mods: Command,                     chars: "\x1bp"                }
   - { key: LBracket,       mods: Command,                     chars: "\x1b["                }
   - { key: RBracket,       mods: Command,                     chars: "\x1b]"                }
-
+  # alt-left and alt-right to jump words
+  - { key: Right, mods: Alt, chars: "\x1BF" }
+  - { key: Left,  mods: Alt, chars: "\x1BB" }
 #debug:
   # Display the time it takes to redraw each frame.
   #render_timer: false
