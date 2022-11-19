@@ -39,7 +39,7 @@ require("packer").startup(
       -- For statusline
       use {
         "hoob3rt/lualine.nvim",
-        requires = {"kyazdani42/nvim-web-devicons", opt = true},
+        requires = {"kyazdani42/nvim-web-devicons"},
         after = "github-nvim-theme",
         config = function ()
           require 'config/lualine'
