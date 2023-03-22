@@ -30,7 +30,7 @@ local on_attach = function(client, bufnr)
   }
 end
 
-local servers = {"tsserver", "dockerls", "bashls", "jsonls"}
+local servers = {"tsserver", "dockerls", "bashls", "jsonls", "eslint"}
 for _, server in ipairs(servers) do
   lsp[server].setup {
     on_attach = on_attach,
@@ -74,7 +74,7 @@ local runtime_path = vim.split(package.path, ";")
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
-lsp.sumneko_lua.setup {
+lsp.lua_ls.setup {
   cmd = { 'lua-language-server' },
   on_attach = on_attach,
   settings = {
