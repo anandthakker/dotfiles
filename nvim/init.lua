@@ -1,5 +1,3 @@
-require "plugins"
-
 vim.cmd "filetype plugin indent on"
 
 vim.g.mapleader = " "
@@ -31,6 +29,51 @@ vim.cmd "autocmd BufWritePre * StripWhitespace"
 -- check for changes on disk on focus
 vim.cmd "autocmd BufEnter,FocusGained * checktime"
 
+if vim.g.vscode then
+    require "config/vscode"
+else
+    -- configure plugins
+    require "plugins"
+    require "config/lsp"
+    require "config/completion-and-snippets"
+    require "config/formatter"
+    require "config/treesitter"
+    require "config/gitsigns"
+
+
+    vim.cmd('colorscheme github_dark_high_contrast')
+
+    -- fzf
+    local brew_root = string.gsub(vim.fn.system("brew --prefix"), "%s", "")
+    vim.cmd ("set rtp+="..brew_root.."/opt/fzf")
+    vim.cmd "let g:fzf_layout = {'up': '~50%'}"
+    -- Find a file
+    vim.api.nvim_set_keymap("n", "<leader>o", ":Files<CR>", {noremap = true, silent = true})
+    -- Find an open buffer
+    vim.api.nvim_set_keymap("n", "<leader>p", ":Buffers<CR>", {noremap = true, silent = true})
+    vim.g.fzf_buffers_jump = 1
+
+    -- grepper
+    vim.cmd "runtime plugin/grepper.vim"
+    vim.cmd "let g:grepper.prompt_quote = 0"
+    vim.cmd "let g:grepper.tools = ['rg']"
+    vim.api.nvim_set_keymap("n", "<leader>g", ":Grepper<CR>", {noremap = true, silent = true})
+
+    -- lsp
+    vim.cmd "augroup lsp"
+    vim.cmd "  au!"
+    vim.cmd "  au FileType java lua print('hello'); require('config/lsp').start_jdt()"
+    vim.cmd "augroup end"
+
+    -- shortcut to quickly toggle Treesitter highlighting, useful when it's slowing down
+    -- editing on large files
+    vim.cmd "command! ToggleTSHighlight TSBufToggle highlight"
+
+    -- trouble key maps
+    vim.api.nvim_set_keymap("n", "[t", ":lua require('trouble').previous({skip_groups=true,jump=true})<CR>", {noremap=true,silent=true})
+    vim.api.nvim_set_keymap("n", "]t", ":lua require('trouble').next({skip_groups=true,jump=true})<CR>", {noremap=true,silent=true})
+end
+
 -- replace unimpaired bindings
 vim.api.nvim_set_keymap("n", "[j", "<C-O>", {noremap = true})
 vim.api.nvim_set_keymap("n", "]j", "<C-I>", {noremap = true})
@@ -45,46 +88,3 @@ vim.api.nvim_set_keymap("n", "<leader>=", ":resize +5<CR>", {noremap = true})
 vim.api.nvim_set_keymap("n", "<leader>-", ":resize -5<CR>", {noremap = true})
 vim.api.nvim_set_keymap("n", "<leader>+", ":vertical resize +5<CR>", {noremap = true})
 vim.api.nvim_set_keymap("n", "<leader>_", ":vertical resize -5<CR>", {noremap = true})
-
--- configure plugins
-require "config/github-theme"
-require "config/hop"
-require "config/lsp"
-require "config/completion-and-snippets"
-require "config/formatter"
-require "config/treesitter"
-require "config/harpoon"
-require "config/gitsigns"
--- require "config/lua-dev"
--- not ready to use telescope yet... seems a bit clunky compared to fzf
--- require "config/telescope"
-
--- fzf
-local brew_root = string.gsub(vim.fn.system("brew --prefix"), "%s", "")
-vim.cmd ("set rtp+="..brew_root.."/opt/fzf")
-vim.cmd "let g:fzf_layout = {'up': '~50%'}"
--- Find a file
-vim.api.nvim_set_keymap("n", "<leader>o", ":Files<CR>", {noremap = true, silent = true})
--- Find an open buffer
-vim.api.nvim_set_keymap("n", "<leader>p", ":Buffers<CR>", {noremap = true, silent = true})
-vim.g.fzf_buffers_jump = 1
-
--- grepper
-vim.cmd "runtime plugin/grepper.vim"
-vim.cmd "let g:grepper.prompt_quote = 0"
-vim.cmd "let g:grepper.tools = ['rg']"
-vim.api.nvim_set_keymap("n", "<leader>g", ":Grepper<CR>", {noremap = true, silent = true})
-
--- lsp
-vim.cmd "augroup lsp"
-vim.cmd "  au!"
-vim.cmd "  au FileType java lua print('hello'); require('config/lsp').start_jdt()"
-vim.cmd "augroup end"
-
--- shortcut to quickly toggle Treesitter highlighting, useful when it's slowing down
--- editing on large files
-vim.cmd "command! ToggleTSHighlight TSBufToggle highlight"
-
--- trouble key maps
-vim.api.nvim_set_keymap("n", "[t", ":lua require('trouble').previous({skip_groups=true,jump=true})<CR>", {noremap=true,silent=true})
-vim.api.nvim_set_keymap("n", "]t", ":lua require('trouble').next({skip_groups=true,jump=true})<CR>", {noremap=true,silent=true})
