@@ -68,6 +68,7 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # rust
 PATH="$HOME/.cargo/bin:$PATH"
+[ -f $HOME/.cargo/env ] && source $HOME/.cargo/env
 
 # homebrew sbin (for dnsmasq)
 PATH="/usr/local/sbin:${PATH}"
@@ -106,4 +107,3 @@ alias tkill="for s in \$(tmux list-sessions | awk '{print \$1}' | rg ':' -r '' |
 
 # start tmux
 ta || true
-
