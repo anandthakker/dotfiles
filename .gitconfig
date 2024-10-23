@@ -4,6 +4,7 @@
 	email = anandthakker@users.noreply.github.com
 [core]
 	excludesfile = ~/.gitignore_global
+	editor = code --wait
 [push]
 	default = simple
 	followTags = true
