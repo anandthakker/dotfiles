@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -eo pipefail
+
 if [[ $(git rev-parse --abbrev-ref HEAD) != "main" ]]; then
   read -n 1 -p "Current branch is not main. Are you sure you want to delete unmerged branches?" answer
   case ${answer:0:1} in
