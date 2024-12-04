@@ -24,7 +24,7 @@ ZSH_THEME="one"
 # This makes repository status check for large repositories much, much faster.
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 ZSH_CUSTOM="$HOME"/dotfiles/zsh-custom
-plugins=(git nvm github zsh-syntax-highlighting zsh-autosuggestions zsh-completions aws)
+plugins=(git nvm github zsh-syntax-highlighting zsh-autosuggestions zsh-completions aws poetry)
 source $ZSH/oh-my-zsh.sh
 
 # This speeds up pasting w/ autosuggest
@@ -50,8 +50,8 @@ bashcompinit
 #
 
 # fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='rg --files --hidden'
+source <(fzf --zsh)
 
 # https://github.com/juliangruber/project.sh
 [ -d $HOME/dotfiles/project.sh ] && source $HOME/dotfiles/project.sh/project.sh
@@ -107,3 +107,7 @@ alias tkill="for s in \$(tmux list-sessions | awk '{print \$1}' | rg ':' -r '' |
 
 # start tmux
 ta || true
+
+
+# Created by `pipx` on 2024-06-01 13:40:49
+export PATH="$PATH:/Users/anand/.local/bin"
