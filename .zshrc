@@ -7,7 +7,7 @@ export HOMEBREW_BUNDLE_FILE="$HOME"/dotfiles/Brewfile
 PATH="$HOME/dotfiles/bin:$HOME/bin:$PATH"
 setopt autocd
 
-PROMPT='%F{green}%n@%m%f %1~ %# '
+source $HOME/dotfiles/.zsh_prompt
 
 # Editor
 export EDITOR='vim'
