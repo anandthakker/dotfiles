@@ -1,0 +1,21 @@
+# Run `ghostty +show-config --default --docs` to view a list of
+# all available config options and their default values.
+
+# Additionally, each config option is also explained in detail
+# on Ghostty's website, at https://ghostty.org/docs/config.
+
+# Reload with cmd+shift+,
+
+scrollback-limit = 1000000
+shell-integration = zsh
+
+# visuals
+theme = ayu
+
+# keys
+keybind = cmd+left_bracket=previous_tab
+keybind = cmd+right_bracket=next_tab
+keybind = ctrl+l=goto_split:right
+keybind = ctrl+h=goto_split:left
+keybind = ctrl+j=goto_split:down
+keybind = ctrl+k=goto_split:up

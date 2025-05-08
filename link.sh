@@ -10,7 +10,7 @@ done
 
 mkdir -p .config
 cd .config
-for dir in nvim alacritty
+for dir in ghostty
 do
   [ -d "$dir" ] && echo ".config/$dir exists: skipping." || (ln -s ../dotfiles/$dir && echo "Linked .config/$dir")
 done
