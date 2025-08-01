@@ -61,8 +61,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# pyenv
-export PATH=$(pyenv root)/shims:$PATH
 
 #
 # Aliases
@@ -74,3 +72,4 @@ if [ MACOSX -o -x /usr/bin/dircolors ]; then
 fi
 
 alias timeout='gtimeout'
+alias claude="/Users/anand/.claude/local/claude"
