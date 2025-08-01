@@ -19,3 +19,4 @@ keybind = ctrl+l=goto_split:right
 keybind = ctrl+h=goto_split:left
 keybind = ctrl+j=goto_split:down
 keybind = ctrl+k=goto_split:up
+keybind = shift+enter=text:\n
