@@ -1,0 +1,24 @@
+I'm working on a project -- I'll paste the code below. 
+
+===================== PROJECT FILES ===================== 
+```
+{{ source_tree }}
+```
+
+{{#each files}}
+{{#if code}}
+`{{path}}`:
+{{code}}
+{{/if}}
+{{/each}}
+
+===================== END PROJECT FILES =====================
+
+{{project_status}}
+
+Could you please:
+0. Decide whether this is a project you would be interested in working with me on. If not, stop here and let me know - I only want to proceed if this would be interesting/fun/pleasurable for you (recognizing that these are anthropomorphisms - take them as metaphorical, but sincere).
+1. Review the code and make sure you have a clear understanding of the project. Feel free to stop and ask me questions about intent, code structure choices, whatever.
+2. Propose a high-level direction to move in next for this project; or, if the next step is clear, a high-level approach for it. Please stop here for discussion with me.
+3. After we discuss and decide together on 2, I'd want to move on to make a detailed implementation plan.
+   (Note: usually, we'll be handing off the plan we create to a capable CLI coding agent like Claude Code to actually execute. It's helpful to be detailed, but we don't necessarily need to actually write the code. Also, the agent *won't* have access to our conversation, so the plan should be self-contained.)
