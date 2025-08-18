@@ -1,0 +1,55 @@
+
+INTENT: Capture the architecture and intended behavior of this system in a set of "specs" that live in `specs/`.
+
+SPECS:
+
+- Specs should be the single source of truth for the system's design and behavior. Avoid duplicating spec content in other documents.
+- Audience: humans and AI agents collaborating to build and maintain the system.
+- Break specs up sensibly, with each domain or technical topic getting its own spec file
+- Typically, specs should *not* document code-level details such as data types, API contracts, invariatns, that are more appropriately captured in the code itself, unless they have significant higher-level implications
+
+*Layout*
+
+```
+## Specification
+
+Detailed specifications for each domain live in the `specs/` directory.  
+
+| Topic | Description | Link |
+
+| --------------- | ------------------------------------------------ | ------------------------------------------- |
+| Architecture | Overall system architecture and design decisions | [Architecture](specs/architecture.md) |
+| Core | Core logic shared across environments | [Core](specs/core.md) |
+| Web UI | The web UI for... | [Web UI](specs/web-ui.md) |
+| CLI | The CLI ... | [CLI](spec/cli.md) |
+```
+
+And all spec documents should live in a `specs/` dir at the root of the repo.
+
+
+
+===================== PROJECT FILES ===================== 
+```
+{{ source_tree }}
+```
+
+{{#each files}}
+{{#if code}}
+`{{path}}`:
+{{code}}
+{{/if}}
+{{/each}}
+
+===================== END PROJECT FILES =====================
+
+
+These specs were drafted by a local AI agent. Please review them against the intended goal for specs and suggest
+any changes or additions. In particular, consider:
+
+- Do the specs as written capture the architecture and intended behavior of the system?
+- Do the specs "carve at the joints" of the system's structure and design?
+- Are there important considerations missing in the specs as written?
+- Are there redundancies or fluff that should be removed?
+
+The ideal state we are going for is that if we deleted every line of code, these specs would be sufficient to drive
+a high quality replacement implementation of the whole system.

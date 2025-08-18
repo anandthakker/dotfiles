@@ -73,3 +73,10 @@ fi
 
 alias timeout='gtimeout'
 alias claude="/Users/anand/.claude/local/claude"
+
+# bun completions
+[ -s "/Users/anand/.bun/_bun" ] && source "/Users/anand/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
