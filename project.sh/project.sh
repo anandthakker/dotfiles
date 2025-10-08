@@ -6,9 +6,11 @@ goto() {
 
 clone() {
   cd $PROJ_ROOT
+  # Look for GITHUB_HOST and fall back to github.com
+  GITHUB_HOST=${GITHUB_HOST:-github.com}
   mkdir -p $1
   cd $1
-  git clone git@github.com:$1/$2.git
+  git clone git@"$GITHUB_HOST":$1/$2.git
   cd $2
 }
 
