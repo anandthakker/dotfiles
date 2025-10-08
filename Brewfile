@@ -87,8 +87,6 @@ cask "font-hack-nerd-font"
 cask "font-meslo-lg-nerd-font"
 # Terminal emulator that uses platform-native UI and GPU acceleration
 cask "ghostty"
-# Move and resize windows using keyboard shortcuts or snap areas
-cask "rectangle"
 vscode "anthropic.claude-code"
 vscode "bradlc.vscode-tailwindcss"
 vscode "dbaeumer.vscode-eslint"
