@@ -1,7 +1,3 @@
-[user]
-	name = Anand Eng-Thakker
-  username = anandthakker
-	email = anandthakker@users.noreply.github.com
 [core]
 	excludesfile = ~/.gitignore_global
 	pager = delta

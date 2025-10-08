@@ -33,7 +33,12 @@ fi
 shift
 
 # Run code2prompt with the template and the rest of the arguments
-code2prompt $TEMPLATE_CMD "$@"
+code2prompt $TEMPLATE_CMD \
+  --exclude package-lock.json \
+  --exclude yarn.lock \
+  --exclude pnpm-lock.yaml \
+  --exclude Cargo.lock \
+ "$@"
 
 # Exit with the same exit code as code2prompt
 exit $?
