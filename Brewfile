@@ -1,6 +1,3 @@
-tap "homebrew/bundle"
-tap "homebrew/cask-fonts"
-tap "homebrew/services"
 # Library and utilities for processing GIFs
 brew "giflib"
 # Library for manipulating PNG images
