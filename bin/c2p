@@ -6,34 +6,9 @@ if ! command -v code2prompt &> /dev/null; then
     exit 1
 fi
 
-# First argument is the template to use
-TEMPLATE="$1"
+# Run code2prompt with some default exclusions
 
-# If the template is '--' (or missing) then just don't use a template. Otherwise, resolve the template name
-# against ~/dotfiles/code2prompt/templates
-
-if [ "$TEMPLATE" = "--" ]; then
-    TEMPLATE_CMD=""
-else
-    TEMPLATE="$HOME/dotfiles/code2prompt/templates/$TEMPLATE"
-    # Append .hbs if the template does not have an extension
-    if [[ ! "$TEMPLATE" =~ \.hbs$ ]]; then
-        TEMPLATE="$TEMPLATE.hbs"
-    fi
-    if [ ! -f "$TEMPLATE" ]; then
-        echo "Template '$TEMPLATE' does not exist."
-        echo "Available templates are:"
-        ls "$HOME/dotfiles/code2prompt/templates/"
-        exit 1
-    fi
-    TEMPLATE_CMD="--template $TEMPLATE"
-fi
-
-# Shift the arguments so that we can pass the rest to code2prompt
-shift
-
-# Run code2prompt with the template and the rest of the arguments
-code2prompt $TEMPLATE_CMD \
+code2prompt \
   --exclude package-lock.json \
   --exclude yarn.lock \
   --exclude pnpm-lock.yaml \
