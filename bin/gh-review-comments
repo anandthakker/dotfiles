@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# Determine org and repo from current git remote
+repo_full=$(gh repo view --json nameWithOwner --jq .nameWithOwner 2>/dev/null || true)
+if [[ -z "$repo_full" ]]; then
+  echo "Error: Could not determine repository (are you in a GitHub repo?)"
+  exit 1
+fi
+
+# Get PR number from argument or GH CLI
+if [[ $# -gt 0 ]]; then
+  pr_number="$1"
+else
+  pr_number=$(gh pr view --json number --jq .number 2>/dev/null || true)
+  if [[ -z "$pr_number" ]]; then
+    echo "Error: No PR number found. Provide one as an argument or run inside a PR branch."
+    exit 1
+  fi
+fi
+
+echo "Fetching comments for PR #${pr_number} in ${repo_full}..."
+# Fetch and display PR comments
+gh api "repos/${repo_full}/pulls/${pr_number}/comments" \
+  --jq '.[] | {path, line, user: .user.login, body}'

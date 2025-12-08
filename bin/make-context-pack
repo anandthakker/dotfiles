@@ -1,0 +1,171 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Defaults
+MODEL="${MODEL:-gpt-5-codex}"
+DRY_RUN=0
+TOPIC_FILE=""
+
+usage() {
+  cat <<EOF
+Usage: $(basename "$0") [-r <repo_path>] [-o <out_dir>] -t "<topic>"
+  [-m gpt-5-codex] [--topic-file file] [--dry-run]
+
+If -r is omitted, the script uses the current (or containing) git repo root.
+If -o is omitted, the output directory defaults to REPO/agent-workspace
+
+Required:
+  -t, --topic         Short description of the topic/question/domain (quoted)
+
+Optional:
+  -r, --repo         Path to the repository (defaults to git root)
+  -o, --out          Output directory (default: ~/Desktop)
+  -m, --model        Model for Codex (default: gpt-5-codex)
+      --topic-file    Read the topic text from a file (overrides -t)
+      --dry-run      Print resolved prompt and exit (no Codex run)
+  -h, --help         Show this help
+EOF
+}
+
+# Find git root or fallback to CWD
+git_root_or_cwd() {
+  if git rev-parse --show-toplevel >/dev/null 2>&1; then
+    git rev-parse --show-toplevel
+  else
+    pwd
+  fi
+}
+
+REPO=""
+OUT=""
+TOPIC=""
+
+# Parse args
+if [[ $# -eq 0 ]]; then usage; exit 1; fi
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -r|--repo) REPO="$2"; shift 2 ;;
+    -o|--out) OUT="$2"; shift 2 ;;
+    -t|--topic) TOPIC="$2"; shift 2 ;;
+    -m|--model) MODEL="$2"; shift 2 ;;
+    --topic-file) TOPIC_FILE="$2"; shift 2 ;;
+    --dry-run) DRY_RUN=1; shift ;;
+    -h|--help) usage; exit 0 ;;
+    *) echo "Unknown arg: $1"; usage; exit 1 ;;
+  esac
+done
+
+# Defaults for repo/out
+if [[ -z "${REPO}" ]]; then
+  REPO="$(git_root_or_cwd)"
+fi
+if [[ -z "${OUT}" ]]; then
+  OUT="${REPO}/agent-workspace"
+fi
+mkdir -p "${OUT}"
+
+# Load topic from file if provided
+if [[ -n "${TOPIC_FILE}" ]]; then
+  TOPIC="$(cat "${TOPIC_FILE}")"
+fi
+[[ -n "${TOPIC}" ]] || { echo "Topic is required (-t or --topic-file)."; exit 1; }
+
+# Check deps
+command -v codex >/dev/null 2>&1 || { echo "codex CLI not found."; exit 1; }
+command -v code2prompt >/dev/null 2>&1 || { echo "code2prompt not found."; exit 1; }
+
+# Build Codex instruction
+# Codex is asked to:
+#  - choose a unique, kebab-case pack dir name inside OUT
+#  - create README.md + manifest.tsv
+#  - copy selected files preserving paths
+#  - print machine-parsable lines:
+#      PACK_DIR: <abs path>
+#      SUCCESS: files=<N> bytes=<B>
+CODEX_PROMPT="$(cat <<'EOF'
+You are running NON-INTERACTIVELY in a local repository.
+
+Please create a "context pack" from the repo that best grounds a human/LLM discussion about the following TOPIC (task/project/question):
+<<TOPIC_TEXT>>
+
+Please create a "context pack" directory INSIDE this output directory:
+  <<OUT_DIR>>
+
+Naming:
+  - Choose a concise, kebab-case folder name that combines the repo name and a short slug of the TOPIC.
+  - Ensure uniqueness (e.g., add a short timestamp or counter if needed).
+  - Create that directory and refer to it as PACK_DIR (absolute path).
+
+Assemble the pack:
+  1) Explore the codebase in order to develop a thorough understanding of any parts of the system that are relevant to the TOPIC.
+  2) Select a thoghtfully curated, high-signal set of files that best ground the TOPIC:
+     - Architecture docs, module entrypoints, public APIs, key data models, glue code, relevant tests.
+     - Prefer fewer, better files over many mediocre ones.
+     - Avoid huge binaries, vendored blobs, lockfiles, and build artifacts.
+     - Soft constraint: total size ~50K tokens (approximation is fine here).
+  3) Recreate parent subdirectories and copy chosen files into PACK_DIR, preserving relative paths.
+  4) Write PACK_DIR/README.md containing:
+     - Topic summary (1–2 paragraphs).
+     - Bulleted list of what's included and why it matters.
+     - "How to read this pack" guidance for an LLM/human.
+     - "Omissions" section: notable files intentionally left out (with brief rationale).
+  5) Write PACK_DIR/manifest.tsv (UTF-8, tab-separated) with header:
+        path	bytes	sha256	rationale
+     Include one row per copied file.
+
+Output (machine-parsable, last lines of your run):
+  - A line exactly: PACK_DIR: <absolute path to the created pack dir>
+  - A line exactly: SUCCESS: files=<N> bytes=<B>
+
+Constraints:
+  - Deterministic, reproducible. No builds or network access. Do not modify source files.
+
+Reasoning: be concise; act decisively; avoid chatter; produce the two final lines exactly as specified.
+EOF
+)"
+
+# Inject runtime values
+CODEX_PROMPT="${CODEX_PROMPT//<<TOPIC_TEXT>>/${TOPIC//$'\n'/\\n}}"
+CODEX_PROMPT="${CODEX_PROMPT//<<OUT_DIR>>/${OUT//\//\\/}}"
+
+if [[ ${DRY_RUN} -eq 1 ]]; then
+  printf '%s\n' "---- Codex exec prompt (dry run) ----"
+  printf '%s\n' "${CODEX_PROMPT}"
+  exit 0
+fi
+
+echo ">> Repo: ${REPO}"
+echo ">> Out dir: ${OUT}"
+echo ">> Running Codex..."
+RUN_LOG="$(mktemp -t codex-pack-XXXXXX.log)"
+
+(
+  cd "${REPO}"
+  # Non-interactive Codex run
+  codex --model "${MODEL}" exec "${CODEX_PROMPT}"
+) | tee "${RUN_LOG}"
+
+# Parse PACK_DIR from Codex output
+PACK_DIR_LINE="$(grep -E '^PACK_DIR: ' "${RUN_LOG}" | tail -n1 || true)"
+if [[ -z "${PACK_DIR_LINE}" ]]; then
+  echo "WARN: Codex did not emit PACK_DIR line; attempting heuristic discovery..."
+  # Fallback: choose the newest directory created/modified under OUT during this run
+  # Note: 'find -type d -maxdepth 1' ensures we're only looking at immediate children of OUT
+  PACK_DIR="$(find "${OUT}" -maxdepth 1 -type d -printf '%T@ %p\n' 2>/dev/null | sort -nr | head -n1 | awk '{ $1=""; sub(/^ /,""); print }')"
+else
+  PACK_DIR="${PACK_DIR_LINE#PACK_DIR: }"
+fi
+
+[[ -n "${PACK_DIR}" && -d "${PACK_DIR}" ]] || { echo "Failed to locate the created pack directory."; exit 1; }
+
+# Build a single-file bundle next to the pack dir
+PACK_BASENAME="$(basename "${PACK_DIR}")"
+OUT_PROMPT="${OUT%/}/${PACK_BASENAME}.md"
+
+echo ">> Bundling pack with code2prompt -> ${OUT_PROMPT}"
+code2prompt "${PACK_DIR}" > "${OUT_PROMPT}"
+
+SUCCESS_LINE="$(grep -E '^SUCCESS: ' "${RUN_LOG}" | tail -n1 || true)"
+echo ">> ${SUCCESS_LINE:-SUCCESS}"
+echo ">> PACK_DIR: ${PACK_DIR}"
+echo ">> BUNDLE:   ${OUT_PROMPT}"
