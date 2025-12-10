@@ -52,6 +52,7 @@ ai-sandbox() {
 
   docker run -it --rm \
     -v "$mount_dir":"$workspace_path" \
+    -v "$HOME/dotfiles":/home/agent/dotfiles:ro \
     -v "$config_volume":/home/agent/sandbox-config \
     -e XDG_CONFIG_HOME=/home/agent/sandbox-config/config \
     -e XDG_DATA_HOME=/home/agent/sandbox-config/share \
