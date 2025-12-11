@@ -35,10 +35,6 @@
 	ddiff = -c diff.external=difft diff
 	dft = -c diff.external=difft diff
 	
-[filter "hawser"]
-	clean = git hawser clean %f
-	smudge = git hawser smudge %f
-	required = true
 [github]
 	user = anandthakker
 [filter "lfs"]

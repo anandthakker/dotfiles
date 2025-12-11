@@ -83,3 +83,6 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # ai-sandbox
 [ -f "$HOME/dotfiles/ai-sandbox/ai-sandbox.zsh" ] && source "$HOME/dotfiles/ai-sandbox/ai-sandbox.zsh"
+
+# Machine-specific overrides (not in version control)
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
